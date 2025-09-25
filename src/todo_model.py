@@ -1,6 +1,7 @@
 from typing import Any, override
 
 from PyQt6.QtCore import QAbstractListModel, QModelIndex, Qt
+from PyQt6.QtGui import QColor, QFont
 
 type ToDo = tuple[str, bool]
 
@@ -38,6 +39,15 @@ class TodoModel(QAbstractListModel):
             done_status = "DONE" if is_done is True else "TODO"
 
             return f"{todo_text}  --  {done_status}"
+
+        if role == Qt.ItemDataRole.ForegroundRole:
+            return QColor(Qt.GlobalColor.darkGreen if is_done else Qt.GlobalColor.black)
+
+        if role == Qt.ItemDataRole.FontRole:
+            font = QFont()
+            if is_done is False:
+                font.setBold(True)
+            return font
 
         return
 
