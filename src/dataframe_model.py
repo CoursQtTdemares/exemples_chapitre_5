@@ -28,3 +28,10 @@ class DataFrameModel(QAbstractTableModel):
         if role == Qt.ItemDataRole.DisplayRole:
             return f"{self.table_data.iloc[index.row(), index.column()]:.2f}"
         return None
+
+    def filter_data(self) -> None:
+        self.beginResetModel()
+
+        self.table_data = self.table_data[self.table_data["tension_V"] < 11]
+
+        self.endResetModel()
