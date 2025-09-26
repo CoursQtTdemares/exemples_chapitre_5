@@ -70,11 +70,11 @@ class TodoModel(QAbstractListModel):
         if self.is_row_valid(row) is False:
             return
 
-        self.beginInsertRows(QModelIndex(), row, row)
+        self.beginRemoveRows(QModelIndex(), row, row)
 
         self.todos.pop(row)
 
-        self.endInsertRows()
+        self.endRemoveRows()
 
     def toggle_todo(self, row: int) -> None:
         if self.is_row_valid(row) is False:
